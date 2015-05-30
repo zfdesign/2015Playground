@@ -1,5 +1,6 @@
-# akqa
-AKQA Your Basket Web Developer Exercise
+# AKQA 
+
+_AKQA Your Basket Web Developer Exercise_
 
 To view the result follow the steps below. 
 
