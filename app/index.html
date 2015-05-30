@@ -41,6 +41,7 @@
                             </td>
                             <td class="edit">
                                 <form id="sku12345" method="post" action="/basket/idXXXX/product/sku12345/update">
+                                    <input type="hidden" name="basketState" value="encoded_basket_state_object">
                                     <input type="reset" value="Remove">
                                     <input type="submit" value="Update">
                                 </form>
@@ -61,6 +62,7 @@
                             </td>
                             <td class="edit">
                                 <form id="sku23451" method="post" action="/basket/idXXXX/product/sku23451/update">
+                                    <input type="hidden" name="basketState" value="encoded_basket_state_object">
                                     <input type="reset" value="Remove">
                                     <input type="submit" value="Update">
                                 </form>
@@ -81,6 +83,7 @@
                             </td>
                             <td class="edit">
                                 <form id="sku34512" method="post" action="/basket/idXXXX/product/sku34512/update">
+                                    <input type="hidden" name="basketState" value="encoded_basket_state_object">
                                     <input type="reset" value="Remove">
                                     <input type="submit" value="Update">
                                 </form>
@@ -108,7 +111,7 @@
                     </tfoot>
                 </table>
                 <p class="note">Please update each product individually before proceeding with "Buy Now".</p>
-                <form action="/basket/idXXXX/buy-now.html" method="post">
+                <form action="/pay.html" method="post">
                     <input type="hidden" name="basketState" value="encoded_basket_state_object">
                     <input type="submit" value="Buy now">
                 </form>
@@ -121,7 +124,14 @@
         </div>
 
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-        <script src="js/main.js"></script>
-        <!--[if gte IE 7]><script src="js/gte.ie7.js"></script><![endif]-->
+        <!--TODO: Build script minify-->
+        <script src="js/app/app.js"></script>
+        <script src="js/app/utilities/app.utilities.js"></script>
+        <script src="js/app/events/app.events.js"></script>
+        <script src="js/app/views/app.views.js"></script>
+        <script src="js/app/views/app.views.BasketView.js"></script>
+        <script src="js/app/controllers/app.controllers.js"></script>
+        <script src="js/app/controllers/app.controllers.BasketController.js"></script>
+        <!--[if gte IE 7]><script src="js/app/ie/gte.ie7.js"></script><![endif]-->
     </body>
 </html>
