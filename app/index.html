@@ -1,0 +1,127 @@
+<!doctype html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>AKQA Basket</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="css/main.css">
+    </head>
+    <body>
+        <div class="content">
+            <h1>AKQA</h1>
+            <h2>Your Basket</h2>
+            <p>Items you have added to your basket are shown below.</p>
+            <p>Adjust quantities or remove Items before continuing your purchase.</p>
+            <div id="basket">
+                <table>
+                    <caption>Your Basket items and prices</caption>
+                    <thead>
+                    <tr>
+                        <th scope="col">Product</th>
+                        <th scope="col">Price</th>
+                        <th scope="col">Qty</th>
+                        <th scope="col">Cost</th>
+                        <th scope="col">Edit Items</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <th scope="row">
+                                Cotton T-Shirt, Medium
+                            </th>
+                            <td class="price">
+                                £1.99
+                            </td>
+                            <td>
+                                <input form="sku12345" type="number" name="quantity" value="1" min="0" placeholder="Number of items. e.g. 1 or more">
+                            </td>
+                            <td class="cost">
+                                <span class="cost">£1.99</span>
+                            </td>
+                            <td class="edit">
+                                <form id="sku12345" method="post" action="/basket/idXXXX/product/sku12345/update">
+                                    <input type="reset" value="Remove">
+                                    <input type="submit" value="Update">
+                                </form>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th scope="row">
+                                Baseball Cap, One Size
+                            </th>
+                            <td class="price">
+                                £2.99
+                            </td>
+                            <td>
+                                <input form="sku23451" type="number" name="quantity" value="2" min="0" placeholder="Number of items. e.g. 1 or more">
+                            </td>
+                            <td class="cost">
+                                £5.98
+                            </td>
+                            <td class="edit">
+                                <form id="sku23451" method="post" action="/basket/idXXXX/product/sku23451/update">
+                                    <input type="reset" value="Remove">
+                                    <input type="submit" value="Update">
+                                </form>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th scope="row">
+                                Swim Short, Medium
+                            </th>
+                            <td class="price">
+                                £3.99
+                            </td>
+                            <td>
+                                <input form="sku34512" type="number" name="quantity" value="1" min="0" placeholder="Number of items. e.g. 1 or more">
+                            </td>
+                            <td class="cost">
+                                £3.99
+                            </td>
+                            <td class="edit">
+                                <form id="sku34512" method="post" action="/basket/idXXXX/product/sku34512/update">
+                                    <input type="reset" value="Remove">
+                                    <input type="submit" value="Update">
+                                </form>
+                            </td>
+                        </tr>
+                    </tbody>
+                    <tfoot>
+                        <tr class="subTotal">
+                            <th scope="row" colspan="3">Subtotal</th>
+                            <td class="cost">£11.96</td>
+                            <td></td>
+                        </tr>
+                        <tr class="vat">
+                            <th scope="row" colspan="3">VAT @ 20%</th>
+                            <td class="cost">
+                                <span class="cost">£2.39</span>
+                            </td>
+                            <td></td>
+                        </tr>
+                        <tr class="total">
+                            <th scope="row" colspan="3">Total Cost</th>
+                            <td class="cost">£14.35</td>
+                            <td></td>
+                        </tr>
+                    </tfoot>
+                </table>
+                <p class="note">Please update each product individually before proceeding with "Buy Now".</p>
+                <form action="/basket/idXXXX/buy-now.html" method="post">
+                    <input type="hidden" name="basketState" value="encoded_basket_state_object">
+                    <input type="submit" value="Buy now">
+                </form>
+            </div>
+
+            <div class="footer">
+                <p>&copy; AKQA Ltd. Registered in England 2964394</p>
+            </div>
+
+        </div>
+
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+        <script src="js/main.js"></script>
+        <!--[if gte IE 7]><script src="js/gte.ie7.js"></script><![endif]-->
+    </body>
+</html>

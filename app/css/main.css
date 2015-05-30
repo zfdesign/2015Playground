@@ -1,0 +1,121 @@
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif;
+    color: #000;
+    background-color: #eee;
+}
+
+article,
+aside,
+details,
+figcaption,
+figure,
+footer,
+header,
+hgroup,
+main,
+menu,
+nav,
+section,
+summary {
+    display: block;
+}
+
+button,
+input,
+optgroup,
+select,
+textarea {
+    color: inherit;
+    font: inherit;
+    margin: 0;
+}
+
+button,
+html input[type="button"], /* 1 */
+input[type="reset"],
+input[type="submit"] {
+    -webkit-appearance: button; /* 2 */
+    cursor: pointer; /* 3 */
+}
+
+.content {
+    width: 960px;
+    margin: 10px auto;
+}
+
+@media screen and (max-width: 960px) {
+    .content {
+        width: 620px;
+        margin: 10px auto;
+    }
+}
+
+@media screen and (max-width: 640px) {
+    .content {
+        width: 300px;
+        margin: 10px auto;
+    }
+}
+
+table {
+    border-collapse: collapse;
+    border-spacing: 0;
+}
+
+#basket table {
+    border: none;
+    margin: 2em 0;
+}
+
+#basket table th,
+#basket table td {
+    padding: .2em 1em;
+    text-align: left;
+}
+
+@media screen and (max-width: 960px) {
+    #basket table th,
+    #basket table td {
+        padding: .2em .4em;
+    }
+}
+
+@media screen and (max-width: 640px) {
+    #basket table th,
+    #basket table td {
+        padding: .2em;
+    }
+}
+
+#basket table tbody tr:nth-child(2n+0) {
+    background-color: #ddd;
+}
+
+#basket table td.price,
+#basket table td.cost {
+    text-align: right;
+}
+
+#basket table tbody tr:first-child th,
+#basket table tbody tr:first-child td,
+#basket table tfoot tr:first-child th,
+#basket table tfoot tr:first-child td,
+#basket table tfoot tr:last-child th,
+#basket table tfoot tr:last-child td {
+    padding-top: 1.4em;
+}
+
+#basket table tfoot tr:last-child th,
+#basket table tfoot tr:last-child td {
+    padding-bottom: 1.4em;
+}
+
+#basket table thead tr {
+    border-bottom: 1px solid #000;
+}
+
+input[type="number"] {
+    width: 2em;
+}
