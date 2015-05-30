@@ -1,11 +1,19 @@
 describe('Basket Controller', function () {
 
     var controller;
+    var mockContainer;
     var mockView;
 
     beforeEach(function() {
 
-        mockView = {};
+        mockContainer = jasmine.createSpy();
+        spyOn(window, '$').and.callFake(function (arg) {
+            if(arg === '#basket') {
+                return mockContainer;
+            }
+        });
+
+        mockView = jasmine.createSpy();
         spyOn(app.views, 'BasketView').and.callFake(function () {
             return mockView;
         });
@@ -14,8 +22,11 @@ describe('Basket Controller', function () {
     });
 
     describe('Creates new Basket Controller', function () {
+        it('Sets container property', function () {
+            expect(controller.container).toBe(mockContainer);
+        });
         it('Creates new Basket View', function () {
             expect(controller.view).toBe(mockView);
-        })
+        });
     });
 });

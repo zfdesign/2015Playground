@@ -1,3 +1,0 @@
-app.utilities = function () {
-
-};
