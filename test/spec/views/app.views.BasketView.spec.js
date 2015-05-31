@@ -28,8 +28,9 @@ describe('Basket View', function() {
         it('Sets container property value', function () {
             expect(view.container).toBe(mockContainer);
         });
-        it('Creates basket Model', function () {
-            expect(view.model).toBe(mockBasketModel);
+        it('Creates basket Model for each product and adds it to a Collection', function () {
+            expect(app.Model).toHaveBeenCalled();
+            expect(app.Collection).toHaveBeenCalled();
         });
         xit('Hides each product Form buttons', function () {
             expect(view.hideProductFormButtons).toHaveBeenCalledWith(mockProductForm);

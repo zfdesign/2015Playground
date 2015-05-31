@@ -97,6 +97,10 @@ table {
 #basket table td.cost {
     text-align: right;
 }
+#basket .price span,
+#basket .cost span {
+    margin-left: .2em;
+}
 
 #basket table tbody tr:first-child th,
 #basket table tbody tr:first-child td,
@@ -118,4 +122,8 @@ table {
 
 input[type="number"] {
     width: 2em;
+}
+
+.hide {
+    display: none;
 }
