@@ -12,7 +12,7 @@ describe('Collection', function () {
 
     beforeEach(function () {
         mockModels = [];
-        spyOn(kitty.Collection, 'superConstructor');
+        spyOn(app.Collection, 'superConstructor');
         mockModelId = '1';
         mockModelObj = {
             attributes : {

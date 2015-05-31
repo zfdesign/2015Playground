@@ -21,8 +21,8 @@ describe('Basket Controller', function () {
         controller = new app.controllers.BasketController();
     });
 
-    describe('Creates new Basket Controller', function () {
-        it('Sets container property', function () {
+    describe('Creating new Basket Controller', function () {
+        it('Creates container property', function () {
             expect(controller.container).toBe(mockContainer);
         });
         it('Creates new Basket View', function () {

@@ -2,44 +2,75 @@ describe('Basket View', function() {
 
     var view;
     var mockContainer;
-    var mockBasketModel;
     var mockProductForm;
-    var mockFormValidator;
-    var mockProduct;
-    var mockChangeQuantityEvent;
-    var mockChangeQuantityEventObj;
-    var mockRemoveEvent;
-    var mockProductsModel;
-    var mockTotalsObject;
+    var mockPaymentForm;
+    var mockSubtotalCostSpan;
+    var mockVatCostSpan;
+    var mockTotalCostSpan;
+    var mockCollection;
+    var mockProductFormsArray;
 
     beforeEach(function () {
+        mockContainer = {
+            find: function () {}
+        };
+        mockProductForm = jasmine.createSpy();
+        mockSubtotalCostSpan = jasmine.createSpy();
+        mockPaymentForm = jasmine.createSpy();
+        mockVatCostSpan = jasmine.createSpy();
+        mockTotalCostSpan = jasmine.createSpy();
+        spyOn(mockContainer, 'find').and.callFake(function (arg) {
+            if( arg === 'table form' ) {
+                return mockProductForm;
+            }
+            if( arg === '.subTotal .cost span' ) {
+                return mockSubtotalCostSpan;
+            }
+            if( arg === '.vat .cost span' ) {
+                return mockVatCostSpan;
+            }
+            if( arg === '.total .cost span' ) {
+                return mockTotalCostSpan;
+            }
+            if( arg === 'form#payment' ) {
+                return mockPaymentForm;
+            }
+        });
+        mockCollection = jasmine.createSpy();
+        spyOn(app, 'Collection').and.callFake(function (){
+           return mockCollection;
+        });
 
-        mockContainer = {};
-        mockBasketModel = {};
-        spyOn(app, 'Model').and.returnValue(mockBasketModel);
-        mockFormValidator = {};
-        /*spyOn(app.validators, 'BasketFormValidator').and.returnValue(mockFormValidator);*/
-
+        mockProductFormsArray = [];
+        spyOn($, 'each');
 
         view = new app.views.BasketView(mockContainer);
     });
 
-    describe('Creates new Basket View', function() {
-        it('Sets container property value', function () {
+    describe('Creating new Basket View', function() {
+        it('Creates container property', function () {
             expect(view.container).toBe(mockContainer);
         });
-        it('Creates basket Model for each product and adds it to a Collection', function () {
-            expect(app.Model).toHaveBeenCalled();
-            expect(app.Collection).toHaveBeenCalled();
+        it('Creates Product Forms property', function () {
+            expect(view.productForms).toBe(mockProductForm);
         });
-        xit('Hides each product Form buttons', function () {
-            expect(view.hideProductFormButtons).toHaveBeenCalledWith(mockProductForm);
+        it('Creates Subtotal property', function () {
+            expect(view.subTotal).toBe(mockSubtotalCostSpan);
         });
-        xit('Displays remove product "bin" icon', function () {
-            expect(view.showRemoveLink).toHaveBeenCalledWith(mockProductForm);
+        it('Creates VAT property', function () {
+            expect(view.vat).toBe(mockVatCostSpan);
         });
-        xit('Creates new Form Validator', function () {
-            expect(view.formValidator).toBe(mockFormValidator);
+        it('Creates Total property', function () {
+            expect(view.grandTotal).toBe(mockTotalCostSpan);
+        });
+        xit('Creates Payment Form property value', function () {
+            expect(view.paymentForm).toBe(mockPaymentForm);
+        });
+        it('Creates collection view property', function () {
+            expect(view.collection).toBe(mockCollection);
+        });
+        it('Creates a Model from each Product', function () {
+            expect($.each).toHaveBeenCalledWith(view.productForms, jasmine.any(Function));
         });
     });
 /*
@@ -51,7 +82,9 @@ describe('Basket View', function() {
             expect(view.fire).toHaveBeenCalledWith(mockChangeQuantityEvent, mockChangeQuantityEventObj);
         });
     });
-    describe('Manages removing products from basket', function () {
+*/
+
+/*    describe('Manages removing products from basket', function () {
         beforeEach(function() {
             view.removeProduct(mockProduct);
         });
