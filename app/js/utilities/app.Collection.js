@@ -15,7 +15,7 @@ app.Collection.prototype.addModels = function(models) {
     }
 };
 
-app.Collection.prototype.getIndexById = function (id) {
+app.Collection.prototype.getModelIndexById = function (id) {
     var index;
     for(var i = 0; i < this.models.length; i++) {
         if(this.models[i].getAttribute("id") == id) {
@@ -27,12 +27,12 @@ app.Collection.prototype.getIndexById = function (id) {
 };
 
 app.Collection.prototype.getModelById = function(id) {
-    var i = this.getIndexById(id);
+    var i = this.getModelIndexById(id);
     return this.models[i];
 };
 
 app.Collection.prototype.removeModelById = function (id) {
-    var i = this.getIndexById(id);
+    var i = this.getModelIndexById(id);
     var model = this.models[i];
     this.models.splice(i, 1);
     return model;

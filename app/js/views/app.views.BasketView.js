@@ -68,17 +68,6 @@ app.views.BasketView.prototype.addProductRemoveLinks = function () {
     this.onRemoveLinkClicked();
 };
 
-app.views.BasketView.prototype.updateBasket = function (e) {
-    // Product removed
-    if (e.changed.quantity && e.changed.quantity.newValue === '0') {
-        var id = e.model.attributes.id.currentValue;
-        this.updateTotalsWithCollection(e.model);
-        this.collection.removeModelById(id);
-        // TODO: Refactor to Service
-        this.submitProductRemoved(id);
-    }
-};
-
 app.views.BasketView.prototype.updateTotalsWithCollection = function (model) {
     // TODO:
     var totalsModel = this.collection.getModelById('basketTotals');
@@ -95,6 +84,17 @@ app.views.BasketView.prototype.updateTotalsWithCollection = function (model) {
     this.subTotal.text((subTotal/100).toFixed(2));
     this.vat.text((vat/100).toFixed(2));
     this.grandTotal.text((grandTotal/100).toFixed(2));
+};
+
+app.views.BasketView.prototype.updateBasket = function (e) {
+    // Product removed
+    if (e.changed.quantity && e.changed.quantity.newValue === '0') {
+        var id = e.model.attributes.id.currentValue;
+        this.updateTotalsWithCollection(e.model);
+        this.collection.removeModelById(id);
+        // TODO: Refactor to Service
+        this.submitProductRemoved(id);
+    }
 };
 
 app.views.BasketView.prototype.submitProductRemoved = function (id) {
