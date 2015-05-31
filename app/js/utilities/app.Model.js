@@ -31,13 +31,13 @@ app.Model.prototype.getAttribute = function(name) {
 app.Model.prototype.setAttribute = function(name, value) {
     this.attributes[name].previousValue = this.attributes[name].currentValue;
     this.attributes[name].currentValue = value;
-    var eventDetails = { changed: {} };
 
     var attributeChanges = {
         previousValue: this.attributes[name].previousValue,
         newValue: this.attributes[name].currentValue
     };
 
+    var eventDetails = { 'changed' : {}, 'model': this};
     eventDetails.changed[name] = attributeChanges;
     this.fire("changed", eventDetails);
 };

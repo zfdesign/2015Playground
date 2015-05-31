@@ -22,7 +22,7 @@
                         <th scope="col">Price</th>
                         <th scope="col">Qty</th>
                         <th scope="col">Cost</th>
-                        <th scope="col">Edit Items</th>
+                        <th scope="col" class="edit">Edit Items</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -31,18 +31,19 @@
                                 Cotton T-Shirt, Medium
                             </th>
                             <td class="price">
-                                £1.99
+                                £<span>1.99</span>
+                            </td>
+                            <td class="quantity">
+                                <input form="pid12345" type="number" name="quantity" value="1" min="0">
                             </td>
                             <td>
-                                <input form="sku12345" type="number" name="quantity" value="1" min="0" placeholder="Number of items. e.g. 1 or more">
-                            </td>
-                            <td class="cost">
                                 <span class="cost">£1.99</span>
                             </td>
                             <td class="edit">
-                                <form id="sku12345" method="post" action="/basket/idXXXX/product/sku12345/update">
+                                <form id="pid12345" method="post" action="/basket/idXXXX/product/pid12345/update">
                                     <input type="hidden" name="basketState" value="encoded_basket_state_object">
-                                    <input type="reset" value="Remove">
+                                    <input type="hidden" name="id" value="pid12345">
+                                    <input type="hidden" name="price" value="1.99">
                                     <input type="submit" value="Update">
                                 </form>
                             </td>
@@ -52,18 +53,19 @@
                                 Baseball Cap, One Size
                             </th>
                             <td class="price">
-                                £2.99
+                                £<span>2.99</span>
                             </td>
-                            <td>
-                                <input form="sku23451" type="number" name="quantity" value="2" min="0" placeholder="Number of items. e.g. 1 or more">
+                            <td class="quantity">
+                                <input form="pid23451" type="number" name="quantity" value="2" min="0">
                             </td>
                             <td class="cost">
-                                £5.98
+                                £<span>5.98</span>
                             </td>
                             <td class="edit">
-                                <form id="sku23451" method="post" action="/basket/idXXXX/product/sku23451/update">
+                                <form id="pid23451" method="post" action="/basket/idXXXX/product/pid23451/update">
                                     <input type="hidden" name="basketState" value="encoded_basket_state_object">
-                                    <input type="reset" value="Remove">
+                                    <input type="hidden" name="id" value="pid23451">
+                                    <input type="hidden" name="price" value="2.99">
                                     <input type="submit" value="Update">
                                 </form>
                             </td>
@@ -73,18 +75,19 @@
                                 Swim Short, Medium
                             </th>
                             <td class="price">
-                                £3.99
+                                £<span>3.99</span>
                             </td>
-                            <td>
-                                <input form="sku34512" type="number" name="quantity" value="1" min="0" placeholder="Number of items. e.g. 1 or more">
+                            <td class="quantity">
+                                <input form="pid34512" type="number" name="quantity" value="1" min="0">
                             </td>
                             <td class="cost">
-                                £3.99
+                                £<span>3.99</span>
                             </td>
                             <td class="edit">
-                                <form id="sku34512" method="post" action="/basket/idXXXX/product/sku34512/update">
+                                <form id="pid34512" method="post" action="/basket/idXXXX/product/pid34512/update">
                                     <input type="hidden" name="basketState" value="encoded_basket_state_object">
-                                    <input type="reset" value="Remove">
+                                    <input type="hidden" name="id" value="pid34512">
+                                    <input type="hidden" name="price" value="3.99">
                                     <input type="submit" value="Update">
                                 </form>
                             </td>
@@ -93,25 +96,28 @@
                     <tfoot>
                         <tr class="subTotal">
                             <th scope="row" colspan="3">Subtotal</th>
-                            <td class="cost">£11.96</td>
+                            <td class="cost">
+                                £<span>11.96</span>
+                            </td>
                             <td></td>
                         </tr>
                         <tr class="vat">
                             <th scope="row" colspan="3">VAT @ 20%</th>
                             <td class="cost">
-                                <span class="cost">£2.39</span>
+                                £<span data-vat-percent="20">2.39</span>
                             </td>
                             <td></td>
                         </tr>
                         <tr class="total">
                             <th scope="row" colspan="3">Total Cost</th>
-                            <td class="cost">£14.35</td>
+                            <td class="cost">
+                                £<span>14.35</span></td>
                             <td></td>
                         </tr>
                     </tfoot>
                 </table>
                 <p class="note">Please update each product individually before proceeding with "Buy Now".</p>
-                <form action="/pay.html" method="post">
+                <form id="payment" action="/pay.html" method="post">
                     <input type="hidden" name="basketState" value="encoded_basket_state_object">
                     <input type="submit" value="Buy now">
                 </form>
@@ -123,7 +129,7 @@
 
         </div>
 
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+        <script src="js/libs/jquery/1.11.3/jquery.min.js"></script>
         <!--TODO: Build script minify-->
         <script src="js/app.js"></script>
         <script src="js/utilities/app.clone.js"></script>
@@ -131,6 +137,7 @@
         <script src="js/utilities/app.EventEmitter.js"></script>
         <script src="js/utilities/app.CustomEvent.js"></script>
         <script src="js/utilities/app.Model.js"></script>
+        <script src="js/utilities/app.Collection.js"></script>
         <script src="js/events/app.events.js"></script>
         <script src="js/views/app.views.js"></script>
         <script src="js/views/app.views.BaseView.js"></script>

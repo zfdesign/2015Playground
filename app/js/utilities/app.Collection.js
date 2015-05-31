@@ -6,7 +6,7 @@ app.Collection = function() {
 app.inherit(app.Collection, app.EventEmitter);
 
 app.Collection.prototype.addModel = function(model) {
-    this.model.push(model);
+    this.models.push(model);
 };
 
 app.Collection.prototype.addModels = function(models) {
@@ -15,13 +15,25 @@ app.Collection.prototype.addModels = function(models) {
     }
 };
 
-app.Collection.prototype.getModelById = function(id) {
-    var model;
+app.Collection.prototype.getIndexById = function (id) {
+    var index;
     for(var i = 0; i < this.models.length; i++) {
         if(this.models[i].getAttribute("id") == id) {
-            model = this.models[i];
+            index = i;
             break;
         }
     }
+    return index;
+};
+
+app.Collection.prototype.getModelById = function(id) {
+    var i = this.getIndexById(id);
+    return this.models[i];
+};
+
+app.Collection.prototype.removeModelById = function (id) {
+    var i = this.getIndexById(id);
+    var model = this.models[i];
+    this.models.splice(i, 1);
     return model;
 };
