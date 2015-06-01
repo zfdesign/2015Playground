@@ -1,17 +1,18 @@
 app.views.BasketView = function (container) {
     this.container = container;
     this.productForms = container.find('table form');
-    //this.paymentForm = container.find('form#payment');
     this.subTotal = container.find('.subTotal .cost span');
     this.vat = container.find('.vat .cost span');
     this.grandTotal = container.find('.total .cost span');
+    this.productFormModels = [];
     this.createProductFormModels();
     this.collection  = new app.Collection();
-    this.addProductModelsToCollection();
+    this.addProductFormModelsToCollection();
     this.setTotalsCollectionModel();
-    //this.addValidation();
     this.addProductRemoveLinks();
-    this.setOnProductQuantityChange();
+    this.onProductQuantityChange();
+    this.proceedToCheckoutForm = container.find('form#payment');
+    this.proceedToCheckoutForm.on('submit', $.proxy(this, 'onProceedToCheckoutSubmit'));
 };
 
 app.views.BasketView.prototype.createFormModel = function (formData) {
@@ -22,8 +23,7 @@ app.views.BasketView.prototype.createFormModel = function (formData) {
     }
     model = new app.Model(product);
     model.on('changed', this.updateBasket, this);
-    this.productModels = this.productModels || [];
-    this.productModels.push(model);
+    this.productFormModels.push(model);
     return model;
 };
 
@@ -33,12 +33,12 @@ app.views.BasketView.prototype.createProductFormModels = function () {
     }
 };
 
-app.views.BasketView.prototype.addProductModelsToCollection = function () {
-    this.collection.addModels(this.productModels);
+app.views.BasketView.prototype.addProductFormModelsToCollection = function () {
+    this.collection.addModels(this.productFormModels);
 };
 
 app.views.BasketView.prototype.createTotalsObject = function () {
-  return totals = {
+  return {
         'id': 'basketTotals',
         "subTotal": this.subTotal.text() * 100,
         'vat': this.vat.text() * 100,
@@ -51,10 +51,6 @@ app.views.BasketView.prototype.setTotalsCollectionModel = function () {
     this.totals = this.totals || this.createTotalsObject();
     this.totalsModel = new app.Model(this.totals);
     this.collection.addModel(this.totalsModel);
-};
-
-app.views.BasketView.prototype.addValidation = function () {
-    // TODO:
 };
 
 app.views.BasketView.prototype.removeProduct = function (e) {
@@ -122,20 +118,40 @@ app.views.BasketView.prototype.submitProductUpdate = function (id) {
         //TODO:
         // that.removeBasketLine(id);
         // Sync Basket Totals
-        // Update input[name="basketState"]
+        // Update Buy Now Form input[name="basketState"]
     }).fail(function(e) {
         // TODO:
         //this.notifyUserRemoveFailed(id);
     });
 };
 
+app.views.BasketView.prototype.onProductQuantityChange = function () {
+    $(this.container).on('change', 'table .quantity input[type="number"]', $.proxy(this, 'updateProductModel'));
+};
+
 app.views.BasketView.prototype.updateProductModel = function (e) {
     var pid = e.currentTarget.getAttribute('form');
     var model = this.collection.getModelById(pid);
-    model.setAttribute('quantity', e.currentTarget.value);
+    if (typeof e.currentTarget.value !== 'number' || e.currentTarget.value < 0 ) {
+        alert('Positive number values only please!');
+        e.currentTarget.value = model.getAttribute('quantity');
+    } else {
+        model.setAttribute('quantity', e.currentTarget.value);
+    }
 };
 
-app.views.BasketView.prototype.setOnProductQuantityChange = function () {
-    //this.quantityInputs = this.container.find('table .quantity input[type="number"]');
-    $(this.container).on('change', 'table .quantity input[type="number"]', $.proxy(this, 'updateProductModel'));
+app.views.BasketView.prototype.onProceedToCheckoutSubmit = function (e) {
+    e.preventDefault();
+    var form = $(e.currentTarget);
+    $.ajax({
+        url: form.attr('action'),
+        type: 'post',
+        data: form.serializeArray(),
+        dataType: 'json'
+    });
+};
+
+
+app.views.BasketView.prototype.addValidation = function () {
+    // TODO:
 };

@@ -9,6 +9,7 @@ describe('Basket View', function() {
     var mockTotalCostSpan;
     var mockCollection;
     var mockProductFormsArray;
+    var mockProxy;
 
     beforeEach(function () {
         mockContainer = {
@@ -43,6 +44,7 @@ describe('Basket View', function() {
 
         mockProductFormsArray = [];
         spyOn($, 'each');
+        spyOn($, 'proxy');
 
         view = new app.views.BasketView(mockContainer);
     });
@@ -63,14 +65,17 @@ describe('Basket View', function() {
         it('Creates Total property', function () {
             expect(view.grandTotal).toBe(mockTotalCostSpan);
         });
-        xit('Creates Payment Form property value', function () {
-            expect(view.paymentForm).toBe(mockPaymentForm);
-        });
         it('Creates collection view property', function () {
             expect(view.collection).toBe(mockCollection);
         });
         it('Creates a Model from each Product', function () {
             expect($.each).toHaveBeenCalledWith(view.productForms, jasmine.any(Function));
+        });
+        xit('Creates proceed to checkout Form property', function () {
+            expect(view.proceedToCheckoutForm).toBe(mockPaymentForm);
+        });
+        xit('Listens on submit event proceed to checkout form', function () {
+            expect(view.proceedToCheckoutForm.on).toHaveBeenCalledWith('submit', jasmine.any(Function));
         });
     });
 /*
