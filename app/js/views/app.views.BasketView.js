@@ -5,14 +5,11 @@ app.views.BasketView = function (container) {
     this.vat = container.find('.vat .cost span');
     this.grandTotal = container.find('.total .cost span');
     this.productFormModels = [];
-    this.createProductFormModels();
     this.collection  = new app.Collection();
-    this.addProductFormModelsToCollection();
-    this.setTotalsCollectionModel();
-    this.addProductRemoveLinks();
-    this.onProductQuantityChange();
     this.proceedToCheckoutForm = container.find('form#payment');
     this.proceedToCheckoutForm.on('submit', $.proxy(this, 'onProceedToCheckoutSubmit'));
+    this.addProductRemoveLinks();
+    this.onProductQuantityChange();
 };
 
 app.views.BasketView.prototype.createFormModel = function (formData) {
@@ -61,21 +58,16 @@ app.views.BasketView.prototype.removeProduct = function (e) {
     productModel.setAttribute('quantity', '0');
 };
 
-app.views.BasketView.prototype.onRemoveLinkClicked = function () {
-    var links = this.container.find('table tbody tr .remove');
-    links.on('click', $.proxy(this, 'removeProduct'));
-};
-
 app.views.BasketView.prototype.addProductRemoveLinks = function () {
     var removeLink = '<a href="#" class="remove">Remove</a>';
     this.container.find('table td.edit').append(removeLink);
     this.container.find('table thead th.edit').addClass('hide');
     this.container.find('table input[type="submit"]').addClass('hide');
-    this.onRemoveLinkClicked();
+    this.container.find('table tbody tr .remove').on('click', $.proxy(this, 'removeProduct'));
 };
 
 app.views.BasketView.prototype.updateTotalsWithCollection = function (model) {
-    // TODO:
+    // TODO: Factor out to Controller
     var totalsModel = this.collection.getModelById('basketTotals');
     // Calc
     var productTotalPreviousPrice = model.attributes.price.previousValue * 100 * model.attributes.quantity.previousValue;
@@ -84,7 +76,7 @@ app.views.BasketView.prototype.updateTotalsWithCollection = function (model) {
     var subTotal = totalsModel.attributes.subTotal.currentValue + productTotalChange;
     var vat = subTotal * totalsModel.attributes.vatPercent.currentValue;
     var grandTotal = subTotal  + vat;
-    // Update
+    // Update Model
     totalsModel.setAttribute('subTotal', subTotal);
     totalsModel.setAttribute('vat', vat);
     totalsModel.setAttribute('grandTotal', grandTotal);
@@ -102,7 +94,8 @@ app.views.BasketView.prototype.updateBasket = function (e) {
         if( e.changed.quantity.newValue === '0') {
             this.collection.removeModelById(id);
             e.currentTarget.value = 0;
-        }        // TODO: Refactor to Service
+        }
+        // TODO: Refactor to Service
         this.submitProductUpdate(id);
     }
 };
@@ -116,23 +109,29 @@ app.views.BasketView.prototype.submitProductUpdate = function (id) {
         dataType: 'json'
     }).done(function() {
         //TODO:
-        // that.removeBasketLine(id);
         // Sync Basket Totals
         // Update Buy Now Form input[name="basketState"]
+        alert(form.serializeArray());
     }).fail(function(e) {
         // TODO:
         //this.notifyUserRemoveFailed(id);
+        alert('Failed to Submit ' + form.serializeArray());
     });
 };
 
 app.views.BasketView.prototype.onProductQuantityChange = function () {
-    $(this.container).on('change', 'table .quantity input[type="number"]', $.proxy(this, 'updateProductModel'));
+    this.container.on('change', 'table .quantity input[type="number"]', $.proxy(this, 'updateProductModel'));
 };
 
 app.views.BasketView.prototype.updateProductModel = function (e) {
+    if (this.collection.models.length === 0) {
+        this.createProductFormModels();
+        this.addProductFormModelsToCollection();
+        this.setTotalsCollectionModel();
+    }
     var pid = e.currentTarget.getAttribute('form');
     var model = this.collection.getModelById(pid);
-    if (typeof e.currentTarget.value !== 'number' || e.currentTarget.value < 0 ) {
+    if (typeof parseInt(e.currentTarget.value, 10) !== 'number' || e.currentTarget.value < 0 ) {
         alert('Positive number values only please!');
         e.currentTarget.value = model.getAttribute('quantity');
     } else {
@@ -148,6 +147,9 @@ app.views.BasketView.prototype.onProceedToCheckoutSubmit = function (e) {
         type: 'post',
         data: form.serializeArray(),
         dataType: 'json'
+    }).fail(function () {
+        // TODO:
+        alert('Submitting: \nName: ' + form.serializeArray()[0].name + '\nValue: ' + form.serializeArray()[0].value);
     });
 };
 

@@ -7,19 +7,33 @@ describe('Basket View', function() {
     var mockSubtotalCostSpan;
     var mockVatCostSpan;
     var mockTotalCostSpan;
+    var mockModel;
     var mockCollection;
-    var mockProductFormsArray;
+    var mockProductFormsModels;
+    var mockProductTableEditTh;
+    var mockProductTableEditTd;
+    var mockProductFormSubmit;
+    var mockProductRemoveLink;
     var mockProxy;
+    var mockTotalsObject;
+    var mockReturnedTotals;
+    var mockUpdateBasket;
 
     beforeEach(function () {
         mockContainer = {
+            on: function () {},
             find: function () {}
         };
-        mockProductForm = jasmine.createSpy();
-        mockSubtotalCostSpan = jasmine.createSpy();
-        mockPaymentForm = jasmine.createSpy();
-        mockVatCostSpan = jasmine.createSpy();
-        mockTotalCostSpan = jasmine.createSpy();
+        spyOn(mockContainer, 'on');
+        mockProductForm = jasmine.createSpyObj('mockProductForm', ['length']);
+        mockPaymentForm = jasmine.createSpyObj('mockPaymentForm', ['on']);
+        mockSubtotalCostSpan = {'text': function() {}};
+        mockVatCostSpan = {'attr': function() {}, 'text': function() {}};
+        mockTotalCostSpan = {'text': function() {}};
+        mockProductTableEditTh = jasmine.createSpyObj('mockProductTableEditTh', ['addClass']);
+        mockProductTableEditTd = jasmine.createSpyObj('mockProductTableEditTd', ['append']);
+        mockProductFormSubmit = jasmine.createSpyObj('mockProductFormSubmit', ['addClass']);
+        mockProductRemoveLink = jasmine.createSpyObj('mockProductRemoveLink', ['on']);
         spyOn(mockContainer, 'find').and.callFake(function (arg) {
             if( arg === 'table form' ) {
                 return mockProductForm;
@@ -36,15 +50,31 @@ describe('Basket View', function() {
             if( arg === 'form#payment' ) {
                 return mockPaymentForm;
             }
+            if( arg === 'table thead th.edit' ) {
+                return mockProductTableEditTh;
+            }
+            if( arg === 'table td.edit' ) {
+                return mockProductTableEditTd;
+            }
+            if( arg === 'table input[type="submit"]' ) {
+                return mockProductFormSubmit;
+            }
+            if( arg === 'table tbody tr .remove' ) {
+                return mockProductRemoveLink;
+            }
         });
-        mockCollection = jasmine.createSpy();
+
+        mockCollection = jasmine.createSpyObj('mockCollection', ['addModels']);
         spyOn(app, 'Collection').and.callFake(function (){
            return mockCollection;
         });
 
-        mockProductFormsArray = [];
+        mockProductFormsModels = [];
         spyOn($, 'each');
-        spyOn($, 'proxy');
+        mockProxy = 1;
+        spyOn($, 'proxy').and.callFake(function () {
+            return mockProxy;
+        });
 
         view = new app.views.BasketView(mockContainer);
     });
@@ -66,47 +96,151 @@ describe('Basket View', function() {
             expect(view.grandTotal).toBe(mockTotalCostSpan);
         });
         it('Creates collection view property', function () {
+            expect(view.productFormModels).toEqual(mockProductFormsModels);
+        });
+        it('Creates collection view property', function () {
             expect(view.collection).toBe(mockCollection);
         });
-        it('Creates a Model from each Product', function () {
-            expect($.each).toHaveBeenCalledWith(view.productForms, jasmine.any(Function));
-        });
-        xit('Creates proceed to checkout Form property', function () {
+        it('Creates proceed to checkout Form property', function () {
             expect(view.proceedToCheckoutForm).toBe(mockPaymentForm);
         });
-        xit('Listens on submit event proceed to checkout form', function () {
-            expect(view.proceedToCheckoutForm.on).toHaveBeenCalledWith('submit', jasmine.any(Function));
+        it('Listens on submit event proceed to checkout form', function () {
+            expect(view.proceedToCheckoutForm.on).toHaveBeenCalledWith('submit', mockProxy);
         });
-    });
-/*
-    describe('Manages incrementing product quantity in basket', function () {
-        beforeEach(function() {
-            view.onChangeQuantity(mockProduct);
+        it('Creates a Model from each Product', function () {
+            expect(view.container.find).toHaveBeenCalledWith('table td.edit');
+            expect(view.container.find).toHaveBeenCalledWith('table thead th.edit');
+            expect(view.container.find).toHaveBeenCalledWith('table input[type="submit"]');
+            expect(view.container.find).toHaveBeenCalledWith('table tbody tr .remove');
         });
-        xit('Listens for "change" event on quatntity product input and fires "changeQuantity" event', function () {
-            expect(view.fire).toHaveBeenCalledWith(mockChangeQuantityEvent, mockChangeQuantityEventObj);
+        it('Listens on change event to quantity input', function () {
+            expect(view.container.on).toHaveBeenCalledWith('change', 'table .quantity input[type="number"]', mockProxy);
         });
-    });
-*/
 
-/*    describe('Manages removing products from basket', function () {
+    });
+    describe('Creating a Model from Product all Forms', function () {
         beforeEach(function() {
-            view.removeProduct(mockProduct);
+            spyOn(view, 'createFormModel');
+            view.productForms = {
+                length: 1
+            };
+            view.createProductFormModels();
         });
-        xit('Listens for "click" event on remove product link and fires "remove" event', function () {
-            expect(view.fire).toHaveBeenCalledWith(mockRemoveEvent, mockProduct);
+        it('Creates a Model form each form', function () {
+            expect(view.createFormModel).toHaveBeenCalled();
         });
     });
-    describe('Updates Basket Products and Totals', function() {
-        beforeEach(function () {
+    describe('Creating a Model from Product a Form', function () {
+        beforeEach(function() {
+            mockModel = jasmine.createSpyObj('mockModel', ['on']);
+            spyOn(app, 'Model').and.returnValue(mockModel);
+            spyOn(view, 'updateBasket');
+            view.createFormModel(mockProductForm);
+        });
+        it('Creates new Product Model', function () {
+            expect(app.Model).toHaveBeenCalledWith(jasmine.any(Object));
+        });
+        it('Listens on Product Model change event', function () {
+            expect(mockModel.on).toHaveBeenCalledWith('changed', jasmine.any(Function), view);
+        });
+        it('Adds Product Model to View product form models', function () {
+            expect(view.productFormModels[0]).toBe(mockModel);
+        });
+    });
+    describe('Adds product form Models to a Collection', function () {
+        beforeEach(function() {
+            view.addProductFormModelsToCollection();
+        });
+        it('Calls "addModels" method of Collection', function () {
+            expect(mockCollection.addModels).toHaveBeenCalled();
+        });
+    });
+    describe('Creates totals object', function () {
+        beforeEach(function() {
+            spyOn(mockSubtotalCostSpan, 'text').and.returnValue(1);
+            spyOn(mockVatCostSpan, 'attr').and.returnValue(1);
+            spyOn(mockVatCostSpan, 'text').and.returnValue(1);
+            spyOn(mockTotalCostSpan, 'text').and.returnValue(1);
+            mockTotalsObject = {
+                'id': 'basketTotals',
+                "subTotal": mockSubtotalCostSpan.text() * 100,
+                'vat': mockVatCostSpan.text() * 100,
+                'vatPercent': mockVatCostSpan.attr('data-vat-percent')/100,
+                'grandTotal': mockTotalCostSpan.text() * 100
+            };
+
+            mockReturnedTotals = view.createTotalsObject();
+        });
+        it('Returns an Object', function () {
+            expect(mockReturnedTotals).toEqual(mockTotalsObject);
+        });
+    });
+
+    describe('Sets totals Collection Model', function () {
+        beforeEach(function() {
+            view.setTotalsCollectionModel();
+        });
+        xit('', function () {
+            expect(1).toBe(2);
+        });
+    });
+
+    describe('Manages removing products from basket', function () {
+        beforeEach(function() {
+            view.removeProduct();
+        });
+        xit('', function () {
+            expect(1).toBe(2);
+        });
+    });
+
+    describe('Calculates totals in Basket', function () {
+        beforeEach(function() {
+            view.updateTotalsWithCollection();
+        });
+        xit('', function () {
+            expect(1).toBe(2);
+        });
+    });
+    describe('Updates totals in Basket', function () {
+        beforeEach(function() {
             view.updateBasket();
         });
-        xit('Updates Product lines', function() {
-            expect(view.updateProduct).toHaveBeenCalledWith(mockProductsModel);
-        });
-        xit('Updates Basket totals', function () {
-            expect(view.updateTotals).toHaveBeenCalledWith(mockTotalsObject);
+        xit('', function () {
+            expect(1).toBe(2);
         });
     });
-*/
+    describe('Updates totals Model', function () {
+        beforeEach(function() {
+            view.submitProductUpdate();
+        });
+        xit('', function () {
+            expect(1).toBe(2);
+        });
+    });
+    describe('Updates product Model', function () {
+        beforeEach(function() {
+            view.updateProductModel();
+        });
+        xit('', function () {
+            expect(1).toBe(2);
+        });
+    });
+    describe('Manages "Buy now >> " submission', function () {
+        beforeEach(function() {
+            view.onProceedToCheckoutSubmit();
+        });
+        xit('', function () {
+            expect(1).toBe(2);
+        });
+    });
+    describe('Sets form validation', function () {
+        beforeEach(function() {
+            view.addValidation();
+        });
+        xit('', function () {
+            expect(1).toBe(2);
+        });
+    });
+
 });
