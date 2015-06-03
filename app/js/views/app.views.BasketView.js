@@ -54,6 +54,11 @@ app.views.BasketView.prototype.removeProduct = function (e) {
     e.preventDefault();
     $(e.currentTarget).parents('tr').addClass('hide');
     var productId = $(e.currentTarget).siblings('form').attr("id");
+    if (this.collection.models.length === 0) {
+        this.createProductFormModels();
+        this.addProductFormModelsToCollection();
+        this.setTotalsCollectionModel();
+    }
     var productModel = this.collection.getModelById(productId);
     productModel.setAttribute('quantity', '0');
 };
@@ -115,7 +120,8 @@ app.views.BasketView.prototype.submitProductUpdate = function (id) {
     }).fail(function(e) {
         // TODO:
         //this.notifyUserRemoveFailed(id);
-        alert('Failed to Submit ' + form.serializeArray());
+        // TODO: Mockery!
+        alert('Submits ' + form.serializeArray());
     });
 };
 

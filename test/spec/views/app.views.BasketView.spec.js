@@ -18,6 +18,7 @@ describe('Basket View', function() {
     var mockTotalsObject;
     var mockReturnedTotals;
     var mockUpdateBasket;
+    var mockRemoveEvent;
 
     beforeEach(function () {
         mockContainer = {
@@ -64,7 +65,10 @@ describe('Basket View', function() {
             }
         });
 
-        mockCollection = jasmine.createSpyObj('mockCollection', ['addModels']);
+        mockModel = jasmine.createSpyObj('mockModel', ['on']);
+        spyOn(app, 'Model').and.returnValue(mockModel);
+
+        mockCollection = jasmine.createSpyObj('mockCollection', ['addModel', 'addModels']);
         spyOn(app, 'Collection').and.callFake(function (){
            return mockCollection;
         });
@@ -132,8 +136,6 @@ describe('Basket View', function() {
     });
     describe('Creating a Model from Product a Form', function () {
         beforeEach(function() {
-            mockModel = jasmine.createSpyObj('mockModel', ['on']);
-            spyOn(app, 'Model').and.returnValue(mockModel);
             spyOn(view, 'updateBasket');
             view.createFormModel(mockProductForm);
         });
@@ -178,19 +180,31 @@ describe('Basket View', function() {
 
     describe('Sets totals Collection Model', function () {
         beforeEach(function() {
+            spyOn(view, 'createTotalsObject');
             view.setTotalsCollectionModel();
         });
-        xit('', function () {
-            expect(1).toBe(2);
+        it('Adds the new Model to Collection', function () {
+            expect(view.createTotalsObject).toHaveBeenCalled();
+            expect(app.Model).toHaveBeenCalled();
+            expect(mockCollection.addModel).toHaveBeenCalled();
         });
     });
 
-    describe('Manages removing products from basket', function () {
+    describe('Removes products from basket', function () {
         beforeEach(function() {
-            view.removeProduct();
+            mockRemoveEvent = {
+                preventDefault: jasmine.createSpy(),
+                currentTarget: 'a'
+            };
+            spyOn(mockCollection, 'getModelById').and.returnValue(1);
+
+            view.removeProduct(mockRemoveEvent);
         });
-        xit('', function () {
-            expect(1).toBe(2);
+        xit('Remove basket product', function () {
+            expect(mockRemoveEvent.preventDefault).toHaveBeenCalled();
+            expect($).toHaveBeenCalledWith(mockRemoveEvent.currentTarget);
+            //expect(app.Collection.getModelById).toHaveBeenCalled();
+
         });
     });
 
