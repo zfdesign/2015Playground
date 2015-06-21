@@ -15,7 +15,7 @@ describe('Feed View', function() {
         });
     });
     describe('Listens for CLick events on the Images', function () {
-        it('', function () {
+        it('imageToggle state is called', function () {
 
         });
     });
@@ -29,16 +29,11 @@ describe('Feed View', function() {
 
         });
     });
-    describe('Clicking an image', function () {
+    describe('Selecting an image', function () {
         it('Toggles the image class', function () {
 
         });
-        it('Fires "imageSelected" ', function () {
-
-        });
-    });
-    describe('', function () {
-        it('', function () {
+        it('Fires "imageSelected" with image', function () {
 
         });
     });
