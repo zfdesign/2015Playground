@@ -1,3 +1,24 @@
+#feed li {
+    list-style: none;
+    float: left;
+    margin: .8em;
+}
+
+#feed img {
+    border: 2px solid #fff;
+}
+
+#feed.userSelected img {
+    border: 2px solid #efefef;
+    opacity: 0.5;
+}
+
+#feed.userSelected img.selected {
+    border: 2px solid red;
+    opacity: 1;
+}
+
+
 @media only screen and (min-width: 35em) {
 
 }

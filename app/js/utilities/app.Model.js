@@ -20,5 +20,6 @@ app.Model.prototype.getAttribute = function(name) {
 
 app.Model.prototype.setAttribute = function(name, value) {
     this.attributes[name] = value;
+    this.changed = name;
     this.fire('changed', this);
 };

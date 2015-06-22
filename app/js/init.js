@@ -1,9 +1,4 @@
-app.init  = function (data) {
-    new app.controllers.FeedController(data);
+app.getFlickrLiveFeed = function (data) {
+    app.FeedController.setLiveFeed(data);
 };
-(function () {
-    var tags = 'london';
-    var script = document.createElement('script');
-    script.src = 'http://api.flickr.com/services/feeds/photos_public.gne?format=json&jsoncallback=app.init&tags=' + tags;
-    document.head.appendChild(script);
-})();
+app.FeedController = new app.controllers.FeedController();
