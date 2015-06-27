@@ -8,8 +8,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <link rel="shortcut icon" href="favicon.ico" />
-    <link rel="stylesheet" href="../public/stylesheets/base.css">
-    <link rel="stylesheet" href="../public/stylesheets/main.css">
+    <link rel="stylesheet" href="/stylesheets/global.css">
     <!--[if lt IE 9]>
     <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
     <![endif]-->
@@ -40,7 +39,7 @@
 
 <div id="content">
     <h1>Add a fundraising event</h1>
-    <form action="/fundrisers/1" method="post" id="newEvent" accept-charset="utf-8">
+    <form action="/fundrisers/1" method="post" id="newCampaign" accept-charset="utf-8">
         <fieldset>
             <legend>About the event</legend>
             <label>
@@ -126,10 +125,7 @@
     <img alt="JustGiving" width="175" height="31" src="https://chrome.justgiving.com/Content/_Shared/images/jg-header-logo.png">
 </footer>
 
-<script src="../src/javascript/vendor/jquery-1.11.3.min.js"></script>
-<!-- BEGIN_SCRIPT_REPLACE -->
-<script src="../src/javascript/init.js"></script>
-<!-- END_SCRIPT_REPLACE -->
-
+<script src="/scripts/global.min.js"></script>
+<script src="/scripts/campaign.min.js"></script>
 </body>
 </html>
