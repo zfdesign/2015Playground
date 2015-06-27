@@ -1,3 +1,3 @@
 (function() {
-    var fundraiserEvent = new app.controllers.FundraiserEventController();
+    var fundraiserEvent = new app.controllers.CampaignController();
 } ());
