@@ -22,8 +22,7 @@ app.FormValidator.prototype.addValidator = function(fieldName, rules) {
     if (rules.length) {
         for (i = 0; i < rules.length; i++) {
             rule = rules[i];
-            if (typeof rule.method !== "function" ||
-                typeof rule.message !== "string") {
+            if (typeof rule.method !== "function" || typeof rule.message !== "string") {
                 throw exceptionMessageRules;
             }
         }
@@ -72,8 +71,7 @@ app.FormValidator.prototype.removeValidator = function(fieldName) {
     }
 };
 
-app.FormValidator.prototype.removeRuleFromValidator = function(fieldName,
-                                                                 ruleFunction) {
+app.FormValidator.prototype.removeRuleFromValidator = function(fieldName, ruleFunction) {
     var validator = null,
         rules,
         rule,

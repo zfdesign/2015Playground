@@ -4,7 +4,6 @@ describe('Campaign Controller', function () {
     var mockCampaignView;
 
     beforeEach(function() {
-
         mockCampaignView = jasmine.createSpy();
         spyOn(app.views, 'CampaignView').and.returnValue(mockCampaignView);
 
@@ -12,11 +11,8 @@ describe('Campaign Controller', function () {
     });
 
     describe('Creating new Campaign Controller', function () {
-
         it('Creates new Campaign View', function () {
             expect(controller.view).toBe(mockCampaignView);
         });
-
     });
-
 });

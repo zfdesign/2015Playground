@@ -72,6 +72,23 @@ module.exports = function(grunt) {
                     'public/scripts/campaign.min.js':['src/javascript/_bundles/campaign.js']
                 }
             }
+        },
+
+        clean: ['src/javascript/_bundles/*.js'],
+
+        watch: {
+            css:{
+                files: ['src/css/*.css'],
+                tasks: ['concat:css_global']
+            },
+            js_global: {
+                files: ['src/javascript/*.js', 'src/javascript/utilities/*.js', 'src/javascript/views/app.views.BaseView.js'],
+                tasks: ['concat:js_global']
+            },
+            js_campaign: {
+                files: ['src/javascript/views/app.views.CampaignView.js', 'src/javascript/controllers/app.controllers.CampaignController.js'],
+                tasks: ['concat:js_campaign']
+            }
         }
     });
 
@@ -87,7 +104,14 @@ module.exports = function(grunt) {
     // "uglify"
     grunt.loadNpmTasks('grunt-contrib-uglify');
 
+    // "clean"
+    grunt.loadNpmTasks('grunt-contrib-clean');
+
+    // "watch"
+    grunt.loadNpmTasks('grunt-contrib-watch');
+
     // Default task(s).
-    grunt.registerTask('default', ['jshint', 'jasmine', 'concat', 'uglify']);
+    grunt.registerTask('lintNmove', ['jshint', 'concat', 'uglify']);
+    grunt.registerTask('default', ['jshint', 'jasmine', 'concat', 'uglify', 'clean']);
 
 };
