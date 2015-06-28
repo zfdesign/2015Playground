@@ -38,6 +38,7 @@
 </div>
 
 <div id="content">
+    <div>
     <h1>Add a fundraising event</h1>
     <form action="/fundrisers/1" method="post" id="newCampaign" accept-charset="utf-8">
         <fieldset>
@@ -55,8 +56,8 @@
                 <input type="date" name="dtend" required="required">
             </label>
             <label>
-                Add an end date if different
                 <input type="checkbox" name="">
+                Add an end date if different
             </label>
 
             <label>
@@ -64,22 +65,20 @@
                 <input type="text" name="location">
             </label>
             <div>
-                <p>Is it open to people from other charities</p>
-                <a href="#" data-toggle="tooltip" title="i">
-                    If the event is open to people supporting any charity,
-                    anyone making a page on JustGiving can select it.
-                    <br>
-                    If the event is just for your supporters, it will only
-                    be available to those making JustGiving pages for your charity.
+                <p>Is it open to people from other charities
+                <a href="#" class="tooltip" data-title="If the event is open to people supporting any charity, anyone making a page on JustGiving can select it.
+                    If the event is just for your supporters, it will only be available to those making JustGiving pages for your charity.">
+                    <span>i</span>
                 </a>
+                </p>
             </div>
             <label>
-                Yes - anyone can take part
                 <input type="radio" name="public" value="yes" required="required">
+                Yes - anyone can take part
             </label>
             <label>
-                No - it's just for people raising money for my charity
                 <input type="radio" name="public" value="no" required="required">
+                No - it's just for people raising money for my charity
             </label>
 
             <label>
@@ -89,37 +88,40 @@
 
         </fieldset>
         <p>* Indicates a required field</p>
-        <input type="submit">
     </form>
+    </div>
+
+    <aside id="sidebar">
+        <h1><img width="120" height="53" src="https://images.justgiving.com/image/644a9c91-7e6b-448a-8718-dcdea7746bc5.jpg?template=size120w" alt="We Are Macmillan Cancer Support logo" /></h1>
+        <h2>Your events</h2>
+        <ul>
+            <li>
+                <time datetime="2012-04-10 09:00" title="2012-04-10">
+                    <span class="month">Apr</span> <span class="date">10</span> <span class="year">2012</span>
+                </time>
+                <a href="/fundraisers/2">Indurance Irish dance comp Brighton</a>
+                <form action="/fundraisers" method="get" accept-charset="utf-8">
+                    <input  type="hidden" name="fundraiserId" value="2">
+                    <input type="submit" value="Promote">
+                </form>
+            </li>
+            <li>
+                <time datetime="2012-04-10 09:00" title="2012-04-10">
+                    <span class="month">Apr</span> <span class="date">10</span> <span class="year">2012</span>
+                </time>
+                <a href="/fundraisers/3">Sloth race 2012 Cambridge</a>
+                <form action="fundraisers" method="get" accept-charset="utf-8">
+                    <input  type="hidden" name="fundraiserId" value="3">
+                    <input type="submit" value="Promote">
+                </form>
+
+            </li>
+        </ul>
+    </aside>
+
 </div>
 
-<aside id="sidebar">
-    <h1><img width="120" height="53" src="https://images.justgiving.com/image/644a9c91-7e6b-448a-8718-dcdea7746bc5.jpg?template=size120w" alt="We Are Macmillan Cancer Support logo" /></h1>
-    <h2>Your events</h2>
-    <ul>
-        <li>
-            <time datetime="2012-04-10 09:00" title="2012-04-10">
-                <span class="month">Apr</span> <span class="date">10</span> <span class="year">2012</span>
-            </time>
-            <a href="/fundraisers/2">Indurance Irish dance comp Brighton</a>
-            <form action="/fundraisers" method="get" accept-charset="utf-8">
-                <input  type="hidden" name="fundraiserId" value="2">
-                <input type="submit" value="Promote">
-            </form>
-        </li>
-        <li>
-            <time datetime="2012-04-10 09:00" title="2012-04-10">
-                <span class="month">Apr</span> <span class="date">10</span> <span class="year">2012</span>
-            </time>
-            <a href="/fundraisers/3">Sloth race 2012 Cambridge</a>
-            <form action="fundraisers" method="get" accept-charset="utf-8">
-                <input  type="hidden" name="fundraiserId" value="3">
-                <input type="submit" value="Promote">
-            </form>
-
-        </li>
-    </ul>
-</aside>
+<input type="submit" form="newCampaign" class="submitNewEvent">
 
 <footer id="footer">
     <img alt="JustGiving" width="175" height="31" src="https://chrome.justgiving.com/Content/_Shared/images/jg-header-logo.png">
