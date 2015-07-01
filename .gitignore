@@ -38,10 +38,13 @@
 ehthumbs.db
 Thumbs.db
 
+
+# ------ #
+##########
 .idea/
 .grunt/
-/spec/lib/
-/spec/SpecRunner.html
+#/spec/lib/
+#/spec/SpecRunner.html
 _SpecRunner.html
 node_modules/
 src/javascript/_bundles/*.*

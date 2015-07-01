@@ -56,9 +56,9 @@ module.exports = function(grunt) {
                 src: campaignJs,
                 dest: 'src/javascript/_bundles/campaign.js'
             },
-            css_global: {
+            css_bundle: {
                 src: ['src/css/base.css','src/css/main.css'],
-                dest: 'public/stylesheets/global.css'
+                dest: 'public/stylesheets/bundle.min.css'
             }
         },
 
@@ -79,7 +79,7 @@ module.exports = function(grunt) {
         watch: {
             css:{
                 files: ['src/css/*.css'],
-                tasks: ['concat:css_global']
+                tasks: ['concat:css_bundle']
             },
             js_global: {
                 files: ['src/javascript/*.js', 'src/javascript/utilities/*.js', 'src/javascript/views/app.views.BaseView.js'],
