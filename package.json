@@ -1,0 +1,14 @@
+{
+  "name": "Justgiving.FrontEnd.CodeChallenge",
+  "version": "1.0.0",
+  "description": "JustGiving's Front End coding challenge",
+  "main": "server.js",
+  "scripts": {
+    "test": "test"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.13.0"
+  }
+}
