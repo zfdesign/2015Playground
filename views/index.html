@@ -1,1 +1,55 @@
-Your html goes <strong>here</strong>
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>JustGiving - Playground in Hackney Wick</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <link rel="stylesheet" href="/css/styles.css" />
+</head>
+<body>
+    <div class="banner">
+        <img src="images/crowdfunding_image.jpg" width="498" height="280" alt="Crowdfunding image" />
+    </div>
+    <div id="story">
+        <h1>We are raising £3000 to build an adventure playground in Hackney Wick because the kids have no where to play</h1>
+       <!-- // TODO: Dynamically created based on data -->
+        <div class="statusBar">
+            <span class="progress" style="width: 35%">&nbsp;</span>
+        </div>
+
+        <div class="pledgeText">
+            <p class="totalPledged">
+                <!-- // TODO: Formatting i18n -->
+                <span class="pledged">£700.00</span>
+                pledged of £<span class="total">2000</span> funding target
+            </p>
+            <p class="percent">
+                <span>35%</span>
+                funded
+            </p>
+        </div>
+    </div>
+
+    <p class="message">Thanks for your pledge!</p>
+    <div id="owner">
+        <!-- // TODO: Avatar name... Alt attr dynamic -->
+        <img src="images/avatar.jpg" title="Holly Groom" />
+        <h2>Project owner</h2>
+        <p>Holly Groom</p>
+    </div>
+
+    <hr>
+
+    <div class="marketing">
+        <p class="marketing">Create your own crowdfunding project and make a difference in your community</p>
+    </div>
+
+    <div id="footer">
+        <p>Pwered by </p>
+        <img alt="JustGiving" width="175" height="31" src="images/justgiving_logo.svg">
+    </div>
+
+<script src="javascript/main.js"></script>
+</body>
+</html>
