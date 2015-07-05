@@ -1,4 +1,7 @@
-body {
+#fundraisingContainer.updating {
+    opacity: .5;
+}
+#fundraisingContainer {
     margin: 0 auto;
     width: 320px;
     text-align: center;
@@ -62,17 +65,17 @@ h1 {
 }
 
 /* Donation Form */
-#donationForm {
+#donation {
     margin: 2em auto;
 }
 
-#donationForm input {
+#donation input {
     width: 5em;
     border: 1px solid #ccc;
     padding: 10px 5px;
 }
 
-#donationForm .submit {
+#donation .submit {
     width: auto;
     border: 1px solid  #AC29B5;
     border-radius: 2px;
@@ -81,7 +84,7 @@ h1 {
     background-color: #AC29B5;
 }
 
-#donationForm p.message {
+#donation p.message {
     display: inline-block;
     padding: 10px 50px;
     color: #AC29B5;
@@ -138,8 +141,8 @@ hr {
 
 /* showing some responsiveness */
 @media screen and (min-width: 480px) {
-    
-    body {
+
+    #fundraisingContainer {
         width: 480px;
     }
 

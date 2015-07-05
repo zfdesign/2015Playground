@@ -9,13 +9,14 @@
     <link rel="stylesheet" href="/css/styles.css" />
 </head>
 <body>
-    <div id="fundraisingContainer">
+    <div id="fundraisingContainer" class="updating">
         <div class="banner">
             <img src="images/crowdfunding_image.jpg" width="498" height="280" alt="Crowdfunding image" />
         </div>
 
-        <div id="story">
-            <h1>We are raising £3000 to build an adventure playground in Hackney Wick because the kids have no where to play</h1>
+        <!-- // TODO: Template -->
+        <div id="story" data-pledge-target="3000">
+            <h1>We are raising £3000 to build an adventure playground in Hackney Wick because the kids have nowhere to play</h1>
            <!-- // TODO: Dynamically created based on data -->
             <div class="progressBar">
                 <span class="progress" style="width: 35%">&nbsp;</span>
@@ -25,7 +26,7 @@
                 <p class="detail">
                     <!-- // TODO: Formatting i18n -->
                     <span class="amount">£700.00</span>
-                    pledged of £<span class="total">2000</span> funding target
+                    pledged of £<span class="target">2000</span> funding target
                 </p>
                 <p class="summary">
                     <span>35%</span>
@@ -33,10 +34,10 @@
                 </p>
             </div>
 
-            <div id="donationForm">
+            <div id="donation">
                 <form action="donate" method="post">
                     <input type="hidden" name="eventId" value="BlahBlah">
-                    <input type="number" min="0" placeholder="£20" required="required">
+                    <input type="number" name="donation" min="1" placeholder="£20" required="required">
                     <input type="submit" value="Pledge" class="submit">
                 </form>
                 <p class="message" style="display: none;">Thanks for your pledge!</p>
@@ -66,6 +67,7 @@
         </div>
     </div>
 
-    <script src="javascript/main.js"></script>
+    <script type="text/javascript" src="javascript/global.min.js"></script>
+    <script type="text/javascript" src="javascript/fundraiser.min.js"></script>
 </body>
 </html>

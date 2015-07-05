@@ -27,7 +27,7 @@ module.exports = function(grunt) {
                 }
             },
             files: {
-                src: allJs.concat(['Gruntfile.js'])
+                src: ['Gruntfile.js', globalJs, fundraiserJs, 'spec/**/*.spec.js']
             }
         },
 
@@ -51,7 +51,11 @@ module.exports = function(grunt) {
                 src: globalJs,
                 dest: 'src/javascript/app/_temp/global.js'
             },
-            js_campain: {
+/*            js_vendor: {
+                src: ['src/javascript/vendor/jquery-1.11.3.min.js', 'src/javascript/app/_temp/global.js'],
+                dest: 'src/javascript/app/_temp/global.js'
+            },*/
+            js_campaign: {
                 src: fundraiserJs,
                 dest: 'src/javascript/app/_temp/fundraiser.js'
             },
@@ -64,16 +68,19 @@ module.exports = function(grunt) {
         uglify: {
             my_target: {
                 options: {
-                    mangle: false
+                    mangle: false,
+                    sourceMap: true,
+                    sourceMapName: 'assets/javascript/sourcemap.map'
                 },
                 files: {
-                    'assets/javascript/global.min.js':['src/javascript/app/_temp/global.js'],
+                    //'assets/css/styles.min.css':['src/css/styles.css'],
+                    'assets/javascript/global.min.js':['src/javascript/vendor/jquery-1.11.3.min.js', 'src/javascript/app/_temp/global.js'],
                     'assets/javascript/fundraiser.min.js':['src/javascript/app/_temp/fundraiser.js']
                 }
             }
         },
 
-        clean: ['src/javascript/app/_temp/*.js'],
+        clean: ['src/javascript/app/_temp'],
 
         watch: {
             css:{
@@ -82,11 +89,11 @@ module.exports = function(grunt) {
             },
             js_global: {
                 files: ['src/javascript/app/*.js', 'src/javascript/app/utilities/*.js', 'src/javascript/app/views/app.views.*.js'],
-                tasks: ['concat:js_global']
+                tasks: ['concat:js_global', /*'concat:js_vendor', */'uglify']
             },
             js_campaign: {
                 files: ['src/javascript/app/views/*.js', 'src/javascript/app/controllers/*.js'],
-                tasks: ['concat:js_campaign']
+                tasks: ['concat:js_campaign', 'uglify']
             }
         }
     });

@@ -1,9 +1,8 @@
+.idea
 .grunt
 node_modules
-.idea
 
-src/javascript/app/_temp/*.js
-assets/css/*.css
-assets/javascript/*.js
-
-_SpecRunner.html
+assets/css/*.*
+assets/javascript/*.*
+src/javascript/app/_temp/*.*
+views/test.html
