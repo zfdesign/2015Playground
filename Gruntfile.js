@@ -5,7 +5,6 @@ module.exports = function(grunt) {
         'src/javascript/app/utilities/app.clone.js',
         'src/javascript/app/utilities/app.inherit.js',
         'src/javascript/app/utilities/app.EventEmitter.js',
-        'src/javascript/app/utilities/app.FormValidator.js',
         'src/javascript/app/views/app.views.js',
         'src/javascript/app/views/app.views.BaseView.js',
         'src/javascript/app/controllers/app.controllers.js'
@@ -69,7 +68,7 @@ module.exports = function(grunt) {
                 },
                 files: {
                     'assets/javascript/global.min.js':['src/javascript/app/_temp/global.js'],
-                    'assets/javascript/campaign.min.js':['src/javascript/app/_temp/campaign.js']
+                    'assets/javascript/fundraiser.min.js':['src/javascript/app/_temp/fundraiser.js']
                 }
             }
         },
