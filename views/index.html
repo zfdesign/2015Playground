@@ -3,66 +3,69 @@
 <head>
     <meta charset="utf-8">
     <title>JustGiving - Playground in Hackney Wick</title>
+    <!-- As an app depending on platform there may be some specific view port values -->
     <meta name="viewport" content="width=device-width, initial-scale=1" />
 
     <link rel="stylesheet" href="/css/styles.css" />
 </head>
 <body>
-    <div class="banner">
-        <img src="images/crowdfunding_image.jpg" width="498" height="280" alt="Crowdfunding image" />
-    </div>
-    <div id="story">
-        <h1>We are raising £3000 to build an adventure playground in Hackney Wick because the kids have no where to play</h1>
-       <!-- // TODO: Dynamically created based on data -->
-        <div class="progressBar">
-            <span class="progress" style="width: 35%">&nbsp;</span>
+    <div id="fundraisingContainer">
+        <div class="banner">
+            <img src="images/crowdfunding_image.jpg" width="498" height="280" alt="Crowdfunding image" />
         </div>
 
-        <div class="pledge">
-            <p class="detail">
-                <!-- // TODO: Formatting i18n -->
-                <span class="amount">£700.00</span>
-                pledged of £<span class="total">2000</span> funding target
-            </p>
-            <p class="summary">
-                <span>35%</span>
-                funded
-            </p>
+        <div id="story">
+            <h1>We are raising £3000 to build an adventure playground in Hackney Wick because the kids have no where to play</h1>
+           <!-- // TODO: Dynamically created based on data -->
+            <div class="progressBar">
+                <span class="progress" style="width: 35%">&nbsp;</span>
+            </div>
+
+            <div class="pledge">
+                <p class="detail">
+                    <!-- // TODO: Formatting i18n -->
+                    <span class="amount">£700.00</span>
+                    pledged of £<span class="total">2000</span> funding target
+                </p>
+                <p class="summary">
+                    <span>35%</span>
+                    funded
+                </p>
+            </div>
+
+            <div id="donationForm">
+                <form action="donate" method="post">
+                    <input type="hidden" name="eventId" value="BlahBlah">
+                    <input type="number" min="0" placeholder="£20" required="required">
+                    <input type="submit" value="Pledge" class="submit">
+                </form>
+                <p class="message" style="display: none;">Thanks for your pledge!</p>
+            </div>
         </div>
 
-        <div id="donationForm">
-            <form action="donate" method="post">
-                <input type="hidden" name="eventId" value="BlahBlah">
-                <input type="number" min="0" placeholder="£20" required="required">
-                <input type="submit" value="Pledge" class="submit">
-            </form>
-            <p class="message" style="display: none;">Thanks for your pledge!</p>
+        <div id="owner">
+            <!-- // TODO: Avatar name... Alt attr dynamic -->
+            <div class="roundClip">
+                <img class="avatar" src="images/avatar.jpg" title="Holly Groom" />
+            </div>
+            <h2>Project owner</h2>
+            <p>Holly Groom</p>
         </div>
 
-    </div>
+        <hr>
 
-    <div id="owner">
-        <!-- // TODO: Avatar name... Alt attr dynamic -->
-        <div class="roundClip">
-            <img class="avatar" src="images/avatar.jpg" title="Holly Groom" />
+        <div class="marketing">
+            <p class="marketing">Create your own crowdfunding project and make a difference in your community</p>
+            <p><a href="get-started/" class="getStarted">Get started</a></p>
         </div>
-        <h2>Project owner</h2>
-        <p>Holly Groom</p>
+
+        <div id="footer">
+            <p>Pwered by </p>
+            <!-- // TODO: export PNG -->
+            <img alt="JustGiving" width="175" height="31" src="images/justgiving_logo.svg">
+        </div>
     </div>
 
-    <hr>
-
-    <div class="marketing">
-        <p class="marketing">Create your own crowdfunding project and make a difference in your community</p>
-        <p><a href="get-started/" class="getStarted">Get started</a></p>
-    </div>
-
-    <div id="footer">
-        <p>Pwered by </p>
-        <!-- // TODO: export PNG -->
-        <img alt="JustGiving" width="175" height="31" src="images/justgiving_logo.svg">
-    </div>
-
-<script src="javascript/main.js"></script>
+    <script src="javascript/main.js"></script>
 </body>
 </html>

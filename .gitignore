@@ -1,2 +1,5 @@
+.grunt
 node_modules
 .idea
+
+src/javascript/app/_temp/*.js
