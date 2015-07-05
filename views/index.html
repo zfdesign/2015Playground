@@ -30,12 +30,14 @@
             </p>
         </div>
 
-        <form action="donate" method="post" id="pledgeForm">
-            <input type="hidden" name="eventId" value="BlahBlah">
-            <input type="text" placeholder="£20" required="required">
-            <input type="submit" value="Pledge" class="submit">
+        <div id="donationForm">
+            <form action="donate" method="post">
+                <input type="hidden" name="eventId" value="BlahBlah">
+                <input type="number" min="0" placeholder="£20" required="required">
+                <input type="submit" value="Pledge" class="submit">
+            </form>
             <p class="message" style="display: none;">Thanks for your pledge!</p>
-        </form>
+        </div>
 
     </div>
 
@@ -52,6 +54,7 @@
 
     <div class="marketing">
         <p class="marketing">Create your own crowdfunding project and make a difference in your community</p>
+        <p><a href="get-started/" class="getStarted">Get started</a></p>
     </div>
 
     <div id="footer">
