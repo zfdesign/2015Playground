@@ -26,14 +26,14 @@ describe('Fundraiser Controller', function () {
 
         controller = new app.controllers.FundraisingController();
     });
-    describe('When new Fundraiser Controller is created', function () {
+    describe('Given a new Fundraiser Controller is created', function () {
         beforeEach(function () {
             spyOn(controller, 'getCrowdFundingData');
         });
-        it('Then it creates a new Fundraiser View', function () {
+        it('With a new Fundraiser View created', function () {
             expect(controller.view).toBe(mockCampaignView);
         });
-        it('Then listens for "newDonation" View event', function () {
+        it('Listens for "newDonation" View event', function () {
             expect(controller.view.on).toHaveBeenCalledWith('newDonation', mockProxy);
         });
     });

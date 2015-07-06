@@ -15,10 +15,9 @@ app.views.FundraisingView.prototype.setDonationFormValidation = function (form) 
 app.views.FundraisingView.prototype.validateForm = function (e) {
     e.preventDefault();
     var form = e.currentTarget;
-    // TODO: Polyfill
-    if(form.checkValidity && form.checkValidity()) {
-        $(form).find('input[type="submit"]').attr('disabled', 'disabled');
-        var donation = $(form).find('input[name="donation"]').val();
+    if(typeof form.checkValidity === 'function' && form.checkValidity()) {
+        this.donationForm.find('input[type="submit"]').attr('disabled', 'disabled');
+        var donation = this.donationForm.find('input[name="donation"]').val();
         this.fire('newDonation', donation);
         this.container.addClass('updating');
     } else {
@@ -26,11 +25,9 @@ app.views.FundraisingView.prototype.validateForm = function (e) {
     }
 };
 
-
-
 app.views.FundraisingView.prototype.updateDom = function () {
     // Can do with some templating, model binding, etc..
-    // $(document).title('justgiving' + this.name);
+    // $(document).title('justgiving ' + this.name);
     this.container.find('#story h1').text(this.story);
     this.container.find('#story .amount').text('£' + this.totalPledged);
     this.container.find('#story .target').text(this.target);
